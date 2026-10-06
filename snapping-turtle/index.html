@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Common Snapping Turtle Gallery</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.gallery-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 4px 42px 10px;
+}
+
+.gallery {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex: 0 0 calc((100% - 24px) / 3);
+  min-width: 0;
+  scroll-snap-align: start;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f4f4f4;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.credit {
+  min-height: 34px;
+  padding: 7px 9px;
+  background: #f4f4f4;
+  font-size: 11px;
+  line-height: 1.25;
+  color: #555;
+}
+
+.arrow {
+  position: absolute;
+  top: 43%;
+  transform: translateY(-50%);
+  z-index: 10;
+
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d7d7d7;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.94);
+  color: #333;
+
+  font-size: 23px;
+  line-height: 28px;
+  cursor: pointer;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+
+.arrow:hover {
+  background: white;
+}
+
+.prev {
+  left: 3px;
+}
+
+.next {
+  right: 3px;
+}
+
+@media (max-width: 700px) {
+  .gallery-wrapper {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .card {
+    flex-basis: 82%;
+  }
+
+  .arrow {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="gallery-wrapper">
+
+  <button class="arrow prev" onclick="moveGallery(-1)" aria-label="Previous photos">
+    &#8249;
+  </button>
+
+  <div class="gallery" id="gallery">
+
+    <div class="card">
+      <img src="https://picsum.photos/seed/turtle1/800/600" alt="Gallery test image 1">
+      <div class="credit">Photo 1 • Common Snapping Turtle</div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/seed/turtle2/800/600" alt="Gallery test image 2">
+      <div class="credit">Photo 2 • Common Snapping Turtle</div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/seed/turtle3/800/600" alt="Gallery test image 3">
+      <div class="credit">Photo 3 • Common Snapping Turtle</div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/seed/turtle4/800/600" alt="Gallery test image 4">
+      <div class="credit">Photo 4 • Common Snapping Turtle</div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/seed/turtle5/800/600" alt="Gallery test image 5">
+      <div class="credit">Photo 5 • Common Snapping Turtle</div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/seed/turtle6/800/600" alt="Gallery test image 6">
+      <div class="credit">Photo 6 • Common Snapping Turtle</div>
+    </div>
+
+  </div>
+
+  <button class="arrow next" onclick="moveGallery(1)" aria-label="Next photos">
+    &#8250;
+  </button>
+
+</div>
+
+<script>
+function moveGallery(direction) {
+  const gallery = document.getElementById("gallery");
+  const card = gallery.querySelector(".card");
+
+  const gap = 12;
+  const distance = card.offsetWidth + gap;
+
+  gallery.scrollBy({
+    left: direction * distance,
+    behavior: "smooth"
+  });
+}
+</script>
+
+</body>
+</html>
